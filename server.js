@@ -1,7 +1,7 @@
 import {WebSocketServer} from 'ws';
 
 // import functions
-import {parseJSON} from './libs/functions.js'
+import {parseJSON, broadcast, broadcastButExclude} from './libs/functions.js'
 
 // Create WebSocket server
 const wss = new WebSocketServer({port: 8081});
@@ -37,12 +37,27 @@ wss.on('connection', (ws) => {
         // Send message back to client
         let objReply = {
             type:"text",
-            msg: `I received a message from you: ${obj.msg.toUpperCase()}`
+            msg: `I received a message from you: ${obj.msg}`
         }
 
         // Send an stringified object back - server skickar json till clienten  
         ws.send(JSON.stringify(objReply));
 
+        let objBroadcast = {
+            type: "text",
+            msg: `SomeOne said: ${obj.msg}`
+        }
+
+        // // Broadcast to all clients 
+        // wss.clients.forEach((client) => {
+        //     client.send(JSON.stringify(objBroadcast))
+        // })
+
+        // broadcast to all clients
+        broadcast(wss, objBroadcast);
+
+        // broadcast to all but this ws....
+            broadcastButExclude(wss, ws, objBroadcast);
     })
 
 });

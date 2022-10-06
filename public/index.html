@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Websocket</title>
 </head>
-<body>
-    
-        <div id="status"></div>
 
+<body>
+
+    <div id="status"></div>
+
+    <!-- Behövs importera på client sidan skriv type=module -->
     <script>
+        // import {} from '../libs/functions.js';
+
         // Use Websocket
         const websocket = new WebSocket('ws://localhost:8081');
 
@@ -22,12 +27,43 @@
 
         // send json to server - make to obj = JSON.parse()
 
-        // Listen to messages from client - server
+        // Listen to messages from client to server
         websocket.addEventListener('message', (event) => {
-            console.log(event)
+            // console.log(event.data)
+
+            let obj = parseJSON(event.data);
+            console.log("obj", obj.msg)
         })
 
+
+        /**
+         *parse JSON
+         *
+         * @param {*} data
+         * @return {obj} 
+         */
+        function parseJSON(data) {
+
+            // Avoid error using try-catch - server still running
+            try {
+                // handle json - gör om sträng till obj mha parse metoden 
+                let obj = JSON.parse(data);
+                console.log("obj", obj);
+
+                return obj;
+
+                // Om den inte gör som rad 6 dirigerar
+            } catch (error) {
+                // Log to file in real application......
+                console.log("Error receiving data...data type:", typeof data);
+
+                return {
+                    error: "An error..."
+                }
+            }
+        }
     </script>
 
 </body>
+
 </html>
