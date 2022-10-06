@@ -12,12 +12,19 @@
 
     <div id="status"></div>
 
+    <!-- input chat -->
+    <input type="text" id="inputText" placeholder="Type and press Enter" >
+
     <!-- Behövs importera på client sidan skriv type=module -->
     <script>
-        // import {} from '../libs/functions.js';
+    //    Dom elements
+        const inputText = document.getElementById("inputText");
+
 
         // Use Websocket
         const websocket = new WebSocket('ws://localhost:8081');
+
+        // Event Listeners
 
         // Listen on close event (server) in inspector mode
         websocket.addEventListener('close', (event) => {
@@ -35,6 +42,28 @@
             console.log("obj", obj.msg)
         })
 
+        inputText.addEventListener("keydown", () => {
+            console.log(event)
+
+            // Press Enter
+            if (event.key === "Enter"){
+
+                // Chat message - send text to server
+                // Chat messade
+                let objMessage = {
+                    msg: inputText.value
+                }
+
+                // Send text to Server
+                websocket.send(JSON.stringify(objMessage));
+
+            }
+
+        })
+
+
+
+        // Functions......
 
         /**
          *parse JSON
