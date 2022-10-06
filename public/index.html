@@ -8,9 +8,25 @@
 </head>
 <body>
     
+        <div id="status"></div>
+
     <script>
         // Use Websocket
         const websocket = new WebSocket('ws://localhost:8081');
+
+        // Listen on close event (server) in inspector mode
+        websocket.addEventListener('close', (event) => {
+            console.log('Server down...', event);
+            document.getElementById('status').textContent = 'sorry...server down';
+        })
+
+        // send json to server - make to obj = JSON.parse()
+
+        // Listen to messages from client - server
+        websocket.addEventListener('message', (event) => {
+            console.log(event)
+        })
+
     </script>
 
 </body>

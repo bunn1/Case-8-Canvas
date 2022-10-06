@@ -1,19 +1,48 @@
-// 'console.log("hello world!");'
-
 import {WebSocketServer} from 'ws';
+
+// import functions
+import {parseJSON} from './libs/functions.js'
 
 // Create WebSocket server
 const wss = new WebSocketServer({port: 8081});
 
 // Listen on new connections
 wss.on('connection', (ws) => {
-    console.log("hello world");
+    console.log('New client connection from IP:', ws._socket.remoteAddress);
     console.log("New client connections");
+
+    // Check how many clients is connected
+    console.log('Number of connected clients:', wss.clients.size)
 
     // Websocket events (ws) for single client
 
-    // close event
+    // close event - webläsaren stängs ner
     ws.on('close', () => {
         console.log("Client disconnected")
+        
+        // How many clients remain connected
+        console.log('Number of remaining connected clients:', wss.clients.size)
     });
+
+    // Message Event - sänder meddelandet - från client till server
+    // Obs %s gör att det blir till s=sträng el o=object
+    ws.on('message', (data) => {
+        console.log('Message received: %s', data);
+
+        // // Avoid error using try-catch - server still running
+        // // Use defined functions to handle errors - better code
+        let obj = parseJSON(data);
+        console.log("data %s", data)
+
+        // Send message back to client
+        let objReply = {
+            type:"text",
+            msg: `I received a message from you: ${obj.msg.toUpperCase()}`
+        }
+
+        // Send an stringified object back - server skickar json till clienten  
+        ws.send(JSON.stringify(objReply));
+
+    })
+
 });
