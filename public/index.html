@@ -38,9 +38,10 @@
 
 
     <!-- DOM - chat -->
-    <ul>
-        <li><span>Frodo</span><p>Hej på er!</p><time datetime="2022-06-19T20:30">20:30</time></li>
+    <ul id="conversation">
         <li><span>Pippin</span><p>Thoo!</p><time datetime="2022-06-19T09:30">09:30</time></li>
+        <li><span>Frodo</span><p>Hej på er!</p><time datetime="2022-06-19T20:30">20:30</time></li>
+        
     </ul>
 
     <!-- Use template to set html structure for a message -->
@@ -83,6 +84,10 @@
         newMsg.querySelector("span").textContent = "Pippin";
         newMsg.querySelector("p").textContent = "What about breakfast";
         newMsg.querySelector("time").textContent = "09:00";
+
+        document.getElementById("conversation").prepend(newMsg);
+
+        // todo - create a function to insert 
 
 
         // Event Listeners
