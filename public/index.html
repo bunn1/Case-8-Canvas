@@ -89,6 +89,8 @@
 
             let obj = parseJSON(event.data);
             console.log(obj.type, obj.msg, obj.nickname)
+
+            renderMessage(obj);
         });
 
 
