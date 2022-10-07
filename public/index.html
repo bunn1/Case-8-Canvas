@@ -6,6 +6,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Websocket</title>
+    <style>
+        ul{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        li{
+            display: grid;
+            /* child elements */
+            grid-template-columns: 1fr 5fr 1fr;
+        }
+
+        li p{
+            margin: 0;
+        }
+    </style>
 </head>
 
 <body>
@@ -18,6 +35,13 @@
 
     <!-- input chat -->
     <input type="text" id="inputText" placeholder="Type and press Enter" disabled>
+
+
+    <!-- DOM - chat -->
+    <ul>
+        <li><span>Frodo</span><p>Hej på er!</p><time datetime="2022-06-19T20:30">20:30</time></li>
+        <li><span>Pippin</span><p>Thoo!</p><time datetime="2022-06-19T09:30">09:30</time></li>
+    </ul>
 
     <!-- Behövs importera på client sidan skriv type=module -->
     <script>
@@ -46,7 +70,7 @@
             // console.log(event.data)
 
             let obj = parseJSON(event.data);
-            console.log(obj.msg)
+            console.log(obj.type, obj.msg, obj.nickname)
         });
 
 
