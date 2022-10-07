@@ -12,14 +12,21 @@
 
     <div id="status"></div>
 
+    <!-- input nickname -->
+    <input type="text" id="nickname" placeholder="Enter Nickname">
+    <button id="setNickname">Set nickname</button>
+
     <!-- input chat -->
-    <input type="text" id="inputText" placeholder="Type and press Enter" >
+    <input type="text" id="inputText" placeholder="Type and press Enter" disabled>
 
     <!-- Behövs importera på client sidan skriv type=module -->
     <script>
     //    Dom elements
         const inputText = document.getElementById("inputText");
+        const setNickname = document.querySelector("#setNickname");
 
+        // Variable current user / nickname / undefined
+        let nickname;
 
         // Use Websocket
         const websocket = new WebSocket('ws://localhost:8081');
@@ -39,24 +46,47 @@
             // console.log(event.data)
 
             let obj = parseJSON(event.data);
-            console.log("obj", obj.msg)
+            console.log(obj.msg)
+        });
+
+
+        setNickname.addEventListener("click", () => {
+
+            // get value from input nickname
+            nickname = document.getElementById('nickname').value;
+            console.log(nickname)
+
+            // if set - disable input nickname
+            document.getElementById('nickname').setAttribute('disabled',true);
+
+            // enable input field
+            document.getElementById("inputText").removeAttribute("disabled");
+
+            // focus input field
+            document.getElementById("inputText").focus();
+
         })
 
-        inputText.addEventListener("keydown", () => {
-            console.log(event)
+       
 
-            // Press Enter
-            if (event.key === "Enter"){
+        inputText.addEventListener("keydown", (event) => {
+            // console.log(event)
+
+            // Press Enter.... make sure at least one char
+            if (event.key === "Enter" && inputText.value.length > 0) {
 
                 // Chat message - send text to server
-                // Chat messade
+                // Chat message
                 let objMessage = {
-                    msg: inputText.value
+                    msg: inputText.value,
+                    nickname: nickname
                 }
 
                 // Send text to Server
                 websocket.send(JSON.stringify(objMessage));
 
+                // reset input field
+                inputText.value = "";
             }
 
         })
