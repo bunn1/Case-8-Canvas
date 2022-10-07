@@ -37,7 +37,9 @@ wss.on('connection', (ws) => {
         // Send message back to client
         let objReply = {
             type:"text",
-            msg: `I received a message from you: ${obj.msg}`
+            // msg: `I received a message from you: ${obj.msg}`
+            msg: obj.msg,
+            nickname: obj.nickname
         }
 
         // Send an stringified object back - server skickar json till clienten  
@@ -45,7 +47,9 @@ wss.on('connection', (ws) => {
 
         let objBroadcast = {
             type: "text",
-            msg: `SomeOne said: ${obj.msg}`
+            msg: obj.msg,
+            // This show which person sent message
+            nickname: obj.nickname
         }
 
         // // Broadcast to all clients 
