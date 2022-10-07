@@ -67,6 +67,9 @@
 
         // Use Websocket
         const websocket = new WebSocket('ws://localhost:8081');
+
+
+        renderMessage({nickname:"Sam", msg:"Mr Frodo"})
      
 
         // Event Listeners
@@ -190,6 +193,8 @@
 
         // Set datetime attribute - see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/time
         newMsg.querySelector("time").setAttribute("datetime", objDate.toISOString());
+
+        // render using prepend method - last message first
         document.getElementById("conversation").prepend(newMsg);
         }
 
