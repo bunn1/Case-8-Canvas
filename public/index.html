@@ -67,33 +67,7 @@
 
         // Use Websocket
         const websocket = new WebSocket('ws://localhost:8081');
-
-
-
-        // Use template - cloneNode to get info fragment
-        let template = document.getElementById("message").cloneNode(true);
-        console.log("template", template)
-
-        // Fragment using Javascript
-        // let fragment = new DocumentFragment(); 
-
-        // use content to access content
-        let newMsg = template.content
-
-        // Change content template
-        newMsg.querySelector("span").textContent = "Pippin";
-        newMsg.querySelector("p").textContent = "What about breakfast";
-        newMsg.querySelector("time").textContent = "09:00";
-
-        // Get real time 
-        let datetime = new Date().toLocaleTimeString();
-        newMsg.querySelector("time").setAttribute("datetime", datetime);
-
-        document.getElementById("conversation").prepend(newMsg);
-
-        // todo - create a function to insert new chat messages
-
-
+     
 
         // Event Listeners
 
@@ -181,11 +155,45 @@
                 // Log to file in real application......
                 console.log("Error receiving data...data type:", typeof data);
 
+                
                 return {
                     error: "An error..."
                 }
             }
         }
+
+            /**
+         *render new message
+         *
+         * @param {obj}
+         *  
+         */
+
+        function renderMessage(obj) {
+            // Use template - cloneNode to get info fragment
+        let template = document.getElementById("message").cloneNode(true);
+        console.log("template", template)
+
+
+        // use content to access content
+        let newMsg = template.content
+
+        // Change content template
+        newMsg.querySelector("span").textContent = obj.nickname;
+        newMsg.querySelector("p").textContent = obj.msg;
+
+        // New Date object
+        let objDate = new Date();
+
+        // visual: 10:41 .. 9:5 .. leading zero ....
+        newMsg.querySelector("time").textContent = objDate.getHours() + ":" + objDate.getMinutes();
+
+        // Set datetime attribute - see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/time
+        newMsg.querySelector("time").setAttribute("datetime", objDate.toISOString());
+        document.getElementById("conversation").prepend(newMsg);
+        }
+
+
     </script>
 
 </body>
