@@ -1,10 +1,18 @@
-import {WebSocketServer} from 'ws';
+import {
+    WebSocketServer
+} from 'ws';
 
 // import functions
-import {parseJSON, broadcast, broadcastButExclude} from './libs/functions.js'
+import {
+    parseJSON,
+    broadcast,
+    broadcastButExclude
+} from './libs/functions.js'
 
 // Create WebSocket server
-const wss = new WebSocketServer({port: 8081});
+const wss = new WebSocketServer({
+    port: 8081
+});
 
 // Listen on new connections
 wss.on('connection', (ws) => {
@@ -19,7 +27,7 @@ wss.on('connection', (ws) => {
     // close event - webläsaren stängs ner
     ws.on('close', () => {
         console.log("Client disconnected")
-        
+
         // How many clients remain connected
         console.log('Number of remaining connected clients:', wss.clients.size)
     });
@@ -36,7 +44,7 @@ wss.on('connection', (ws) => {
 
         // Send message back to client
         let objReply = {
-            type:"text",
+            type: "text",
             // msg: `I received a message from you: ${obj.msg}`
             msg: obj.msg,
             nickname: obj.nickname
@@ -58,10 +66,10 @@ wss.on('connection', (ws) => {
         // })
 
         // broadcast to all clients
-        broadcast(wss, objBroadcast);
+        // broadcast(wss, objBroadcast);
 
         // broadcast to all but this ws....
-            broadcastButExclude(wss, ws, objBroadcast);
+        broadcastButExclude(wss, ws, objBroadcast);
     })
 
 });

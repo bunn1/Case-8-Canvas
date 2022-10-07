@@ -68,7 +68,7 @@
         // Use Websocket
         const websocket = new WebSocket('ws://localhost:8081');
 
-
+        // test function to add message to conversation
         renderMessage({nickname:"Sam", msg:"Mr Frodo"})
      
 
@@ -107,9 +107,8 @@
             // focus input field
             document.getElementById("inputText").focus();
 
-        })
+        });
 
-       
 
         inputText.addEventListener("keydown", (event) => {
             // console.log(event)
@@ -123,6 +122,9 @@
                     msg: inputText.value,
                     nickname: nickname
                 }
+
+                // show new message for this user
+                renderMessage(objMessage);
 
                 // Send text to Server
                 websocket.send(JSON.stringify(objMessage));
