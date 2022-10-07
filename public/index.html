@@ -69,7 +69,7 @@
 
 
 
-        // Use template - get info by cloning
+        // Use template - cloneNode to get info fragment
         let template = document.getElementById("message").cloneNode(true);
         console.log("template", template)
 
@@ -78,6 +78,7 @@
 
 
         // Event Listeners
+
 
         // Listen on close event (server) in inspector mode
         websocket.addEventListener('close', (event) => {
