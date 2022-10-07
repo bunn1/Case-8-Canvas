@@ -67,6 +67,15 @@
         // Use Websocket
         const websocket = new WebSocket('ws://localhost:8081');
 
+
+
+        // Use template - get info by cloning
+        let template = documument.getElementById("message").cloneNode(true);
+        console.log("template", template)
+
+
+
+
         // Event Listeners
 
         // Listen on close event (server) in inspector mode
