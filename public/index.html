@@ -85,9 +85,14 @@
         newMsg.querySelector("p").textContent = "What about breakfast";
         newMsg.querySelector("time").textContent = "09:00";
 
+        // Get real time 
+        let datetime = new Date().toLocaleTimeString();
+        newMsg.querySelector("time").setAttribute("datetime", datetime);
+
         document.getElementById("conversation").prepend(newMsg);
 
-        // todo - create a function to insert 
+        // todo - create a function to insert new chat messages
+
 
 
         // Event Listeners
