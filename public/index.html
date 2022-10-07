@@ -76,6 +76,14 @@
         // Fragment using Javascript
         // let fragment = new DocumentFragment(); 
 
+        // use content to access content
+        let newMsg = template.content
+
+        // Change content template
+        newMsg.querySelector("span").textContent = "Pippin";
+        newMsg.querySelector("p").textContent = "What about breakfast";
+        newMsg.querySelector("time").textContent = "09:00";
+
 
         // Event Listeners
 
