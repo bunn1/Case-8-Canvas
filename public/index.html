@@ -33,9 +33,12 @@
     <input type="text" id="nickname" placeholder="Enter Nickname">
     <button id="setNickname">Set nickname</button>
 
+
     <!-- input chat -->
     <input type="text" id="inputText" placeholder="Type and press Enter" disabled>
 
+    <!-- Btn for Emojis -->
+    <button id="push-btn">Emoji Button</button>
 
     <!-- DOM - chat -->
     <ul id="conversation">
@@ -54,6 +57,9 @@
         </li>
 
     </template>
+
+
+    <div class="disconnected"></div>
 
 
     <!-- Behövs importera på client sidan skriv type=module -->
@@ -87,10 +93,16 @@
         websocket.addEventListener('message', (event) => {
             // console.log(event.data)
 
+            // Om det är ett chatt meddelande så är object.type inte leaving. Om någon lämnar är obj.type leaving 
             let obj = parseJSON(event.data);
             console.log(obj.type, obj.msg, obj.nickname)
-
-            renderMessage(obj);
+            if (obj.type === "leaving") {
+                let div = document.querySelector('.disconnected')
+                div.innerHTML = "Leaving chat"
+            }else {
+                renderMessage(obj)
+            }
+           
         });
 
 
@@ -137,7 +149,28 @@
 
         })
 
+        const myEmojis = ["😃", "🙃", "😇", "🤔", "🤠", "👽"]
+        function renderEmojis () {
+            for (let i = 0; i < myEmojis.length; i++){
+                const emoji = document.getElementById("inputText")
+                emoji.textContent = myEmojis[i]
+            }
+        }
+        console.log(myEmojis)
 
+        renderEmojis() 
+        const pushBtn= document.getElementById("push-btn")
+            pushBtn.addEventListener("click", function(){
+                const emojiInput = document.getElementById("inputText")
+                emojiInput.value += myEmojis[0]
+                // if (emojiInput.value){
+                //     myEmojis.push(emojiInput.value)
+                //     emojiInput.value = ""
+                //     renderEmojis()
+                // }
+            })
+        console.log(pushBtn)
+    
 
         // Functions......
 
@@ -201,6 +234,13 @@
         // render using prepend method - last message first
         document.getElementById("conversation").prepend(newMsg);
         }
+
+
+//         setTimeout
+// setTimeout kommer hjälpa dig att få "leaving chat" meddelandet att försvinnna efter några sekunder
+// det vore snyggt om man kunde se vem som lämnar chatten
+// man ska kunna välja vilken emoji
+// slumpmässig emoji = Math.random()
 
 
     </script>

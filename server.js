@@ -21,6 +21,8 @@ wss.on('connection', (ws) => {
 
     // Check how many clients is connected
     console.log('Number of connected clients:', wss.clients.size)
+    console.log('Number of connected clients:', wss.clients.forEach(client => console.log(client)))
+
 
     // Websocket events (ws) for single client
 
@@ -30,6 +32,9 @@ wss.on('connection', (ws) => {
 
         // How many clients remain connected
         console.log('Number of remaining connected clients:', wss.clients.size)
+        
+        wss.clients.forEach((client ) => client.send(JSON.stringify({msg:"Tjena tjena", type: "leaving"})))
+
     });
 
     // Message Event - sänder meddelandet - från client till server
