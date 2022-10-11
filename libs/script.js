@@ -9,4 +9,28 @@ let height = (canvas.height = window.innerHeight);
 let x = width / 2;
 let y = height / 2;
 
-l
+let commands = {
+    left: false,
+    right: false,
+    up: false,
+    down: false
+}
+
+// Speed for square 
+let speed = 40;
+
+// The square moves at commands
+function draw () {
+    if (commands.left) {
+        x -= speed
+    }
+    if (commands.right) {
+        x += speed
+    }
+    if (commands.up) {
+        y -= speed
+    }
+    if (commands.down) {
+        y += speed
+    }
+}
