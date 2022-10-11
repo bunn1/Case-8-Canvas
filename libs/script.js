@@ -34,6 +34,10 @@ function draw () {
         y += speed
     }
 
+// Borders - The square isnt able to cross over the screen
+x = Math.min(Math.max(x, 10), width - 10) 
+x = Math.min(Math.max(x, 10), height - 10) 
+
 // Draw background
 context.fillStyle = 'lightgreen';
 context.fillRect(0, 0, width, height);
