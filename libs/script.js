@@ -34,3 +34,19 @@ function draw () {
         y += speed
     }
 }
+
+// Draw background
+context.fillStyle = 'lightgreen';
+context.fillRect(0, 0, width, height);
+
+// Draw border
+context.strokeStyle = 'black';
+context.lineWidth = 15;
+context.strokeRect(10, 10, width - 20, height - 20);
+
+// Draw player
+context.strokeStyle = '#ef8344';
+context.lineWidth = 15;
+context.strokeRect(x - 5, y - 5, 100, 100);
+
+// Set next frame
