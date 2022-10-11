@@ -21,7 +21,7 @@ wss.on('connection', (ws) => {
 
     // Check how many clients is connected
     console.log('Number of connected clients:', wss.clients.size)
-    console.log('Number of connected clients:', wss.clients.forEach(client => console.log(client)))
+    // console.log('Number of connected clients:', wss.clients.forEach(client => console.log("hej")))
 
 
     // Websocket events (ws) for single client
