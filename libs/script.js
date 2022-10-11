@@ -33,7 +33,6 @@ function draw () {
     if (commands.down) {
         y += speed
     }
-}
 
 // Draw background
 context.fillStyle = 'lightgreen';
@@ -50,3 +49,5 @@ context.lineWidth = 15;
 context.strokeRect(x - 5, y - 5, 100, 100);
 
 // Set next frame
+requestAnimationFrame(draw)
+}
