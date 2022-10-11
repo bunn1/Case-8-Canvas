@@ -51,3 +51,40 @@ context.strokeRect(x - 5, y - 5, 100, 100);
 // Set next frame
 requestAnimationFrame(draw)
 }
+
+// Event Listener press keydown
+window.addEventListener('keydown', function (event){ 
+switch (event.key){
+    case 'ArrowUp': 
+    commands.up = true
+    break
+    case 'ArrowDown': 
+    commands.down = true
+    break
+    case 'ArrowLeft': 
+    commands.left = true
+    break
+    case 'ArrowRight': 
+    commands.right = true
+    break
+}
+})
+
+// Event Listener "let go of arrow keys"
+window.addEventListener('keydown', function (event){ 
+    switch (event.key){
+        case 'ArrowUp': 
+        commands.up = false
+        break
+        case 'ArrowDown': 
+        commands.down = false
+        break
+        case 'ArrowLeft': 
+        commands.left = false
+        break
+        case 'ArrowRight': 
+        commands.right = false
+        break
+    }
+    })
+    draw();
