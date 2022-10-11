@@ -23,6 +23,13 @@ function parseJSON(data) {
             }
 }
 
+function sendMoveRectangel(websocketConnection){
+    const obj = {}
+}
+
+
+
+
 function toUpperCases(string) {
 
 }
