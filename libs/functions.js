@@ -24,7 +24,11 @@ function parseJSON(data) {
 }
 
 function sendMoveRectangel(websocketConnection){
-    const obj = {}
+    
+}
+
+function recieveMoveRectangel(ctx, args){
+    // Server tell client to move rectangel
 }
 
 

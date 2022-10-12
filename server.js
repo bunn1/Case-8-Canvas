@@ -32,8 +32,11 @@ wss.on('connection', (ws) => {
 
         // How many clients remain connected
         console.log('Number of remaining connected clients:', wss.clients.size)
-        
-        wss.clients.forEach((client ) => client.send(JSON.stringify({msg:"Tjena tjena", type: "leaving"})))
+
+        wss.clients.forEach((client) => client.send(JSON.stringify({
+            msg: "Tjena tjena",
+            type: "leaving"
+        })))
 
     });
 
@@ -47,23 +50,39 @@ wss.on('connection', (ws) => {
         let obj = parseJSON(data);
         console.log("data %s", data)
 
-        // Send message back to client
-        let objReply = {
-            type: "text",
-            // msg: `I received a message from you: ${obj.msg}`
-            msg: obj.msg,
-            nickname: obj.nickname
+        let objBroadcast = {};
+
+        if (obj.type === "text") {
+            // Send message back to client
+            let objReply = {
+                type: "text",
+                // msg: `I received a message from you: ${obj.msg}`
+                msg: obj.msg,
+                nickname: obj.nickname
+            }
+
+            // Send an stringified object back - server skickar json till clienten  
+            // ws.send(JSON.stringify(objReply));
+
+            objBroadcast = {
+                type: "text",
+                msg: obj.msg,
+                // This show which person sent message
+                nickname: obj.nickname
+            }
         }
 
-        // Send an stringified object back - server skickar json till clienten  
-        // ws.send(JSON.stringify(objReply));
+        if (obj.type === "draw") {
+            console.log(obj)
+            objBroadcast = {
+                type: "draw",
+                 x: obj.x,
+                 y: obj.y,
+                //  nickname: obj.nickname
 
-        let objBroadcast = {
-            type: "text",
-            msg: obj.msg,
-            // This show which person sent message
-            nickname: obj.nickname
+            }
         }
+
 
         // // Broadcast to all clients 
         // wss.clients.forEach((client) => {
