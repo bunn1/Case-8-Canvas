@@ -23,13 +23,13 @@ function parseJSON(data) {
             }
 }
 
-function sendMoveRectangel(websocketConnection){
+// function sendMoveRectangel(websocketConnection){
     
-}
+// }
 
-function recieveMoveRectangel(ctx, args){
-    // Server tell client to move rectangel
-}
+// function recieveMoveRectangel(ctx, args){
+//     // Server tell client to move rectangel
+// }
 
 
 

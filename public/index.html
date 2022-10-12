@@ -42,8 +42,8 @@
 
     <!-- DOM - chat -->
     <ul id="conversation">
-        <li><span>Pippin</span><p>Thoo!</p><time datetime="2022-06-19T09:30">09:30</time></li>
-        <li><span>Frodo</span><p>Hej på er!</p><time datetime="2022-06-19T20:30">20:30</time></li>
+        <!-- <li><span>Pippin</span><p>Thoo!</p><time datetime="2022-06-19T09:30">09:30</time></li>
+        <li><span>Frodo</span><p>Hej på er!</p><time datetime="2022-06-19T20:30">20:30</time></li> -->
         
     </ul>
 
@@ -79,9 +79,7 @@
         // test function to add message to conversation
         renderMessage({nickname:"Sam", msg:"Mr Frodo"})
      
-
         // Event Listeners
-
 
         // Listen on close event (server) in inspector mode
         websocket.addEventListener('close', (event) => {
@@ -101,7 +99,10 @@
             if (obj.type === "leaving") {
                 let div = document.querySelector('.disconnected')
                 div.innerHTML = "Leaving chat"
-            }else {
+            }
+            // Renderar obj om det är ett chatt meddelande
+            if (obj.type === "text" ) {
+                
                 renderMessage(obj)
             }
            if (obj.type === "move") {

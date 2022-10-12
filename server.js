@@ -78,9 +78,13 @@ wss.on('connection', (ws) => {
                 type: "move",
                  x: obj.x,
                  y: obj.y,
+                
                 //  nickname: obj.nickname
 
             }
+            wss.clients.forEach((client) =>{
+                client.send(JSON.stringify(obj))
+            })
         }
 
 
