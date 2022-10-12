@@ -72,10 +72,10 @@ wss.on('connection', (ws) => {
             }
         }
 
-        if (obj.type === "draw") {
+        if (obj.type === "move") {
             console.log(obj)
             objBroadcast = {
-                type: "draw",
+                type: "move",
                  x: obj.x,
                  y: obj.y,
                 //  nickname: obj.nickname

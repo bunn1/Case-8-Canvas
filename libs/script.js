@@ -73,7 +73,7 @@ function init(e) {
                 commands.right = true
                 break
         }
-        let object = {x:x, y:y, type:"draw"};
+        let object = {x:x, y:y, type:"move"};
         console.log(object);
         websocket.send(JSON.stringify(object));
     })
