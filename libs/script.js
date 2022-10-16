@@ -6,6 +6,7 @@ function init(e) {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
+
     // Starting position square
     let x = width / 2;
     let y = height / 2;
@@ -54,9 +55,10 @@ function init(e) {
         context.strokeRect(x - 5, y - 5, 100, 100);
 
         // Set next frame
-        setInterval(function() {
+       
             requestAnimationFrame(draw)
-        }, 10000);
+        //     setInterval(function() {
+        // }, 10000);
       
     }
 
@@ -170,25 +172,25 @@ window.onload = init;
  
      if (obj.type === "move") {
          console.log(obj)
-         context.strokeRect(obj.x, obj.y, 100, 100);
-         context.fill();
-         context.save()
-         context.beginPath();
+        //  context.strokeRect(obj.x, obj.y, 100, 100);
+        //  context.fill();
+        //  context.save()
+        //  context.beginPath();
 
      }
 
 
     // NY KOD --------------------------------------------------------------
 
-     const sendMoveCharacter = (event) => {
-        const message = JSON.parse(event.data);
-        log(`Message incoming: ${JSON.stringify(message)} `);
-        switch (message.type){
-            case "moveCharacter":
-                const {x, y, player} = message.payload
-        }
+     const sendMoveSquare = (websocketConnection) => {
+        const obj = {type: "move", payload:obj.payload}
+        // console.log(`Message incoming: ${JSON.stringify(message)} `);
+       
+        websocketConnection.send(JSON.stringify({type: "move", payload: obj}))
         // {type: "moveOtherClient", payload }
      }
+
+     websocket.onmessage = sendMoveSquare;
 
      const receiveMoveCharacter = (ctx, args) => {
         // handle when server tell client to move character
@@ -203,7 +205,7 @@ window.onload = init;
     //     // handle when server tell client to add text message to chat
     //  }
 
-
+    // let object = {x:x, y:y, type:"move"};
 
 
  setNickname.addEventListener("click", () => {
@@ -249,12 +251,12 @@ window.onload = init;
 
  })
 
- const myEmojis = ["😃", "🙃", "😇", "🤔", "🤠", "👽"]
+ const myEmojis = ["😃", "🙃", "😇", "🤔", "🤠"]
 
  function renderEmojis() {
      for (let i = 0; i < myEmojis.length; i++) {
          const emoji = document.getElementById("inputText")
-         emoji.textContent = myEmojis[i]
+         emoji.textContent += myEmojis[i]
      }
  }
  console.log(myEmojis)
@@ -263,12 +265,12 @@ window.onload = init;
  const pushBtn = document.getElementById("push-btn")
  pushBtn.addEventListener("click", function () {
      const emojiInput = document.getElementById("inputText")
-     emojiInput.value += myEmojis[0]
-     // if (emojiInput.value){
-     //     myEmojis.push(emojiInput.value)
-     //     emojiInput.value = ""
-     //     renderEmojis()
-     // }
+     emojiInput.value += myEmojis[Math.floor(Math.random() * myEmojis.length)];
+    //  if (emojiInput.value){
+    //      myEmojis.push(emojiInput.value)
+    //      emojiInput.value = ""
+    //      renderEmojis()
+    //  }
  })
  console.log(pushBtn)
 

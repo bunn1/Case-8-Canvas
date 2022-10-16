@@ -73,18 +73,20 @@ wss.on('connection', (ws) => {
         }
 
         if (obj.type === "move") {
-            console.log(obj)
+            // Send message back to client
             objBroadcast = {
                 type: "moveOtherClient",
                 x: obj.x,
                 y: obj.y,
-                player: obj.nickname
-
+                
             }
+
+              ws.send(JSON.stringify(objBroadcast));
+
             wss.clients.forEach((client) => {
-                // if (client === ws) {
-                //     return 
-                // }
+                if (client === ws) {
+                    return
+                }
                 client.send(JSON.stringify(obj))
             })
         }
@@ -111,4 +113,3 @@ wss.on('connection', (ws) => {
 
 //     client.send(JSON.stringify(killerObj))
 //     });
-
