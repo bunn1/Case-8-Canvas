@@ -343,4 +343,4 @@ window.onload = init;
  // setTimeout kommer hjälpa dig att få "leaving chat" meddelandet att försvinnna efter några sekunder
  // det vore snyggt om man kunde se vem som lämnar chatten
  // man ska kunna välja vilken emoji
- // slumpmässig emoji = Math.random()
+ // slumpmässig emoji = Math.random() - done
