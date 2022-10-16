@@ -75,14 +75,16 @@ wss.on('connection', (ws) => {
         if (obj.type === "move") {
             console.log(obj)
             objBroadcast = {
-                type: "move",
-                 x: obj.x,
-                 y: obj.y,
-                
-                //  nickname: obj.nickname
+                type: "moveOtherClient",
+                x: obj.x,
+                y: obj.y,
+                player: obj.nickname
 
             }
-            wss.clients.forEach((client) =>{
+            wss.clients.forEach((client) => {
+                // if (client === ws) {
+                //     return 
+                // }
                 client.send(JSON.stringify(obj))
             })
         }
@@ -101,3 +103,12 @@ wss.on('connection', (ws) => {
     })
 
 });
+// skickar till servern
+// websocket.send(JSON.stringify({ type: "clues", payload: murderer }))
+
+// skickar servern till client - och då tar du emot den i en switch
+// wss.clients.forEach((client) => {
+
+//     client.send(JSON.stringify(killerObj))
+//     });
+

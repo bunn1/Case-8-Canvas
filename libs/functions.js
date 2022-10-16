@@ -34,9 +34,17 @@ function parseJSON(data) {
 
 
 
-function toUpperCases(string) {
+// function sendMoveSquare (websocketConnection){
+//    const obj = { }
+//    websocketConnection.send(JSON.stringify())
+// }
 
-}
+
+// function recieveMoveSquare() {
+
+// }
+
+
 
 function randomNumber() {
     return 1;
@@ -75,4 +83,4 @@ function broadcast(wss, objBroadcast) {
 
 }
 
-export {parseJSON, toUpperCases, randomNumber, broadcast, broadcastButExclude}
+export {parseJSON, randomNumber, broadcast, broadcastButExclude}

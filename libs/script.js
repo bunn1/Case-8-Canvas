@@ -54,7 +54,10 @@ function init(e) {
         context.strokeRect(x - 5, y - 5, 100, 100);
 
         // Set next frame
-        requestAnimationFrame(draw)
+        setInterval(function() {
+            requestAnimationFrame(draw)
+        }, 10000);
+      
     }
 
     // Event Listener press keydown
@@ -96,6 +99,246 @@ function init(e) {
         }
     })
     draw();
+
+    function test (message){
+
+    }
+
+    const handleSocketMessage = (event) => { 
+        const message = JSON.parse(event.data)
+        if (message.type === "move") {
+            console.log("thena")
+
+            test(message)
+            // context.strokeStyle = '#ef8344';
+            // context.lineWidth = 15;
+            // context.strokeRect(x - 5, y - 5, 100, 100);
+        }
+    }
+   websocket.onmessage = handleSocketMessage;
 }
 
 window.onload = init;
+
+
+// __________________________________________________________________
+
+
+ //    Dom elements
+ const inputText = document.getElementById("inputText");
+ const setNickname = document.querySelector("#setNickname");
+
+ let canvas = document.getElementById("canvas");
+ let context = canvas.getContext("2d");
+
+
+ // Variable current user / nickname / undefined
+ let nickname;
+
+ // Use Websocket
+ const websocket = new WebSocket('ws://localhost:8081');
+
+ // test function to add message to conversation
+ // renderMessage({nickname:"Sam", msg:"Mr Frodo"})
+
+ // Event Listeners
+
+ // Listen on close event (server) in inspector mode
+ websocket.addEventListener('close', (event) => {
+     console.log('Server down...', event);
+     document.getElementById('status').textContent = 'sorry...server down';
+ })
+
+ // send json to server - make to obj = JSON.parse()
+
+ // Listen to messages from client to server
+ websocket.addEventListener('message', (event) => {
+     // console.log(event.data)
+
+     // Om det är ett chatt meddelande så är object.type inte leaving. Om någon lämnar är obj.type leaving 
+     let obj = parseJSON(event.data);
+     console.log(obj.type, obj.msg, obj.nickname)
+     if (obj.type === "leaving") {
+         let div = document.querySelector('.disconnected')
+         div.innerHTML = "Leaving chat"
+     }
+     // Renderar obj om det är ett chatt meddelande
+     if (obj.type === "text") {
+
+         renderMessage(obj)
+     }
+ 
+     if (obj.type === "move") {
+         console.log(obj)
+         context.strokeRect(obj.x, obj.y, 100, 100);
+         context.fill();
+         context.save()
+         context.beginPath();
+
+     }
+
+
+    // NY KOD --------------------------------------------------------------
+
+     const sendMoveCharacter = (event) => {
+        const message = JSON.parse(event.data);
+        log(`Message incoming: ${JSON.stringify(message)} `);
+        switch (message.type){
+            case "moveCharacter":
+                const {x, y, player} = message.payload
+        }
+        // {type: "moveOtherClient", payload }
+     }
+
+     const receiveMoveCharacter = (ctx, args) => {
+        // handle when server tell client to move character
+     }
+
+    //  function sendTextMessage ( websocketConnection) {
+    //     const obj = {type:"text", payload: }
+    //     websocketConnection.send ()
+    //  }
+
+    //  function receiveMoveCharacter(args) {
+    //     // handle when server tell client to add text message to chat
+    //  }
+
+
+
+
+ setNickname.addEventListener("click", () => {
+
+     // get value from input nickname
+     nickname = document.getElementById('nickname').value;
+     console.log(nickname)
+
+     // if set - disable input nickname
+     document.getElementById('nickname').setAttribute('disabled', true);
+
+     // enable input field
+     document.getElementById("inputText").removeAttribute("disabled");
+
+     // focus input field
+     document.getElementById("inputText").focus();
+
+ });
+
+
+ inputText.addEventListener("keydown", (event) => {
+     // console.log(event)
+
+     // Press Enter.... make sure at least one char
+     if (event.key === "Enter" && inputText.value.length > 0) {
+
+         // Chat message - send text to server
+         // Chat message
+         let objMessage = {
+             msg: inputText.value,
+             nickname: nickname
+         }
+
+         // show new message for this user
+         renderMessage(objMessage);
+
+         // Send text to Server
+         websocket.send(JSON.stringify(objMessage));
+
+         // reset input field
+         inputText.value = "";
+     }
+
+ })
+
+ const myEmojis = ["😃", "🙃", "😇", "🤔", "🤠", "👽"]
+
+ function renderEmojis() {
+     for (let i = 0; i < myEmojis.length; i++) {
+         const emoji = document.getElementById("inputText")
+         emoji.textContent = myEmojis[i]
+     }
+ }
+ console.log(myEmojis)
+
+ renderEmojis()
+ const pushBtn = document.getElementById("push-btn")
+ pushBtn.addEventListener("click", function () {
+     const emojiInput = document.getElementById("inputText")
+     emojiInput.value += myEmojis[0]
+     // if (emojiInput.value){
+     //     myEmojis.push(emojiInput.value)
+     //     emojiInput.value = ""
+     //     renderEmojis()
+     // }
+ })
+ console.log(pushBtn)
+
+
+ // Functions......
+
+ /**
+  *parse JSON
+  *
+  * @param {*} data
+  * @return {obj} 
+  */
+ function parseJSON(data) {
+
+     // Avoid error using try-catch - server still running
+     try {
+         // handle json - gör om sträng till obj mha parse metoden 
+         let obj = JSON.parse(data);
+         console.log("obj", obj);
+
+         return obj;
+
+         // Om den inte gör som rad 6 dirigerar
+     } catch (error) {
+         // Log to file in real application......
+         console.log("Error receiving data...data type:", typeof data);
+
+
+         return {
+             error: "An error..."
+         }
+     }
+ }
+
+ /**
+  *render new message
+  *
+  * @param {obj}
+  *  
+  */
+
+ function renderMessage(obj) {
+     // Use template - cloneNode to get info fragment
+     let template = document.getElementById("message").cloneNode(true);
+     console.log("template", template)
+
+
+     // use content to access content
+     let newMsg = template.content
+
+     // Change content template
+     newMsg.querySelector("span").textContent = obj.nickname;
+     newMsg.querySelector("p").textContent = obj.msg;
+
+     // New Date object
+     let objDate = new Date();
+
+     // visual: 10:41 .. 9:5 .. leading zero ....
+     newMsg.querySelector("time").textContent = objDate.getHours() + ":" + objDate.getMinutes();
+
+     // Set datetime attribute - see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/time
+     newMsg.querySelector("time").setAttribute("datetime", objDate.toISOString());
+
+     // render using prepend method - last message first
+     document.getElementById("conversation").prepend(newMsg);
+ }
+
+ })
+ //         setTimeout
+ // setTimeout kommer hjälpa dig att få "leaving chat" meddelandet att försvinnna efter några sekunder
+ // det vore snyggt om man kunde se vem som lämnar chatten
+ // man ska kunna välja vilken emoji
+ // slumpmässig emoji = Math.random()
