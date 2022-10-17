@@ -1,0 +1,12 @@
+.disconnected{
+    animation: hideAnimation 5s ease-in 5s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes hideAnimation{
+    to{
+        visibility: hidden;
+        width: 0;
+        height: 0;
+    }
+}

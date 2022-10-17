@@ -75,7 +75,7 @@ wss.on('connection', (ws) => {
         if (obj.type === "move") {
             // Send message back to client
             objBroadcast = {
-                type: "moveOtherClient",
+                type: "move",
                 x: obj.x,
                 y: obj.y,
                 

@@ -159,11 +159,18 @@ window.onload = init;
 
      // Om det är ett chatt meddelande så är object.type inte leaving. Om någon lämnar är obj.type leaving 
      let obj = parseJSON(event.data);
-     console.log(obj.type, obj.msg, obj.nickname)
-     if (obj.type === "leaving") {
-         let div = document.querySelector('.disconnected')
-         div.innerHTML = "Leaving chat"
-     }
+            console.log(obj.type, obj.msg, obj.nickname)
+
+            if (obj.type === "leaving") {
+                  
+                let div = document.querySelector('.disconnected')
+                console.log(div)
+                div.innerHTML = "Leaving chat"
+            
+        
+            }
+
+        
      // Renderar obj om det är ett chatt meddelande
      if (obj.type === "text") {
 
@@ -182,19 +189,19 @@ window.onload = init;
 
     // NY KOD --------------------------------------------------------------
 
-     const sendMoveSquare = (websocketConnection) => {
-        const obj = {type: "move", payload:obj.payload}
-        // console.log(`Message incoming: ${JSON.stringify(message)} `);
+    //  const sendMoveSquare = (websocketConnection) => {
+    //     const obj = {type: "move", payload:obj.payload}
+    //     // console.log(`Message incoming: ${JSON.stringify(message)} `);
        
-        websocketConnection.send(JSON.stringify({type: "move", payload: obj}))
-        // {type: "moveOtherClient", payload }
-     }
+    //     websocketConnection.send(JSON.stringify({type: "move", payload: obj}))
+    //     // {type: "moveOtherClient", payload }
+    //  }
 
-     websocket.onmessage = sendMoveSquare;
+    //  websocket.onmessage = sendMoveSquare;
 
-     const receiveMoveCharacter = (ctx, args) => {
-        // handle when server tell client to move character
-     }
+    //  const receiveMoveCharacter = (ctx, args) => {
+    //     // handle when server tell client to move character
+    //  }
 
     //  function sendTextMessage ( websocketConnection) {
     //     const obj = {type:"text", payload: }
@@ -342,5 +349,4 @@ window.onload = init;
  //         setTimeout
  // setTimeout kommer hjälpa dig att få "leaving chat" meddelandet att försvinnna efter några sekunder
  // det vore snyggt om man kunde se vem som lämnar chatten
- // man ska kunna välja vilken emoji
  // slumpmässig emoji = Math.random() - done
