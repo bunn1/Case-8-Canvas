@@ -1,3 +1,8 @@
+canvas{
+    width: 50%;
+    height: 50%;
+}
+
 .disconnected{
     animation: hideAnimation 5s ease-in 5s;
     animation-fill-mode: forwards;
@@ -6,9 +11,8 @@
 @keyframes hideAnimation{
     to{
         visibility: hidden;
-        width: 0;
-        height: 0;
+        width: 10;
+        height: 10;
     }
 } 
- 
  

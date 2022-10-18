@@ -83,6 +83,7 @@ function init(e) {
         websocket.send(JSON.stringify(object));
     })
 
+
     // Event Listener "let go of arrow keys"
     window.addEventListener('keyup', function (event) {
         switch (event.key) {
@@ -109,7 +110,7 @@ function init(e) {
     const handleSocketMessage = (event) => { 
         const message = JSON.parse(event.data)
         if (message.type === "move") {
-            console.log("thena")
+            console.log("thena")    
 
             test(message)
             // context.strokeStyle = '#ef8344';
@@ -166,11 +167,8 @@ window.onload = init;
                 let div = document.querySelector('.disconnected')
                 console.log(div)
                 div.innerHTML = "Leaving chat"
-            
-        
             }
 
-        
      // Renderar obj om det är ett chatt meddelande
      if (obj.type === "text") {
 
@@ -183,25 +181,25 @@ window.onload = init;
         //  context.fill();
         //  context.save()
         //  context.beginPath();
-
      }
 
 
     // NY KOD --------------------------------------------------------------
 
-    //  const sendMoveSquare = (websocketConnection) => {
-    //     const obj = {type: "move", payload:obj.payload}
-    //     // console.log(`Message incoming: ${JSON.stringify(message)} `);
+     const sendMoveSquare = (websocketConnection) => {
+        const obj = {type: "move", payload:obj.payload}
+        // console.log(`Message incoming: ${JSON.stringify(message)} `);
        
-    //     websocketConnection.send(JSON.stringify({type: "move", payload: obj}))
-    //     // {type: "moveOtherClient", payload }
-    //  }
+     
+        websocketConnection.send(JSON.stringify({type: "move", payload: obj}))
+        // {type: "moveOtherClient", payload }
+     }
 
     //  websocket.onmessage = sendMoveSquare;
 
-    //  const receiveMoveCharacter = (ctx, args) => {
-    //     // handle when server tell client to move character
-    //  }
+     const receiveMoveCharacter = (ctx, args) => {
+        // handle when server tell client to move character
+     }
 
     //  function sendTextMessage ( websocketConnection) {
     //     const obj = {type:"text", payload: }

@@ -76,8 +76,7 @@ wss.on('connection', (ws) => {
             // Send message back to client
             objBroadcast = {
                 type: "move",
-                x: obj.x,
-                y: obj.y,
+                commands: {up:false, down:false, left:false, right:false}
                 
             }
 
