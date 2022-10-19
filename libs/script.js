@@ -41,7 +41,7 @@ function init(e) {
         y = Math.min(Math.max(y, 10), height - 10)
 
         // Draw background
-        context.fillStyle = 'lightgreen';
+        context.fillStyle = '#4CAF50';
         context.fillRect(0, 0, width, height);
 
         // Draw border
@@ -50,7 +50,7 @@ function init(e) {
         context.strokeRect(10, 10, width - 20, height - 20);
 
         // Draw player
-        context.strokeStyle = '#ef8344';
+        context.strokeStyle = '#FFD700';
         context.lineWidth = 15;
         context.strokeRect(x - 5, y - 5, 100, 100);
 
@@ -110,9 +110,11 @@ function init(e) {
     const handleSocketMessage = (event) => { 
         const message = JSON.parse(event.data)
         if (message.type === "move") {
-            console.log("thena")    
+            // console.log("thena")    
+            console.log("instructions from server",message)
+            console.log("local commands",commands)
 
-            test(message)
+            // test(message)
             // context.strokeStyle = '#ef8344';
             // context.lineWidth = 15;
             // context.strokeRect(x - 5, y - 5, 100, 100);
@@ -160,7 +162,7 @@ window.onload = init;
 
      // Om det är ett chatt meddelande så är object.type inte leaving. Om någon lämnar är obj.type leaving 
      let obj = parseJSON(event.data);
-            console.log(obj.type, obj.msg, obj.nickname)
+            // console.log(obj.type, obj.msg, obj.nickname)
 
             if (obj.type === "leaving") {
                   
@@ -176,7 +178,7 @@ window.onload = init;
      }
  
      if (obj.type === "move") {
-         console.log(obj)
+         console.log(obj, obj.commands.x, obj.commands.y)
         //  context.strokeRect(obj.x, obj.y, 100, 100);
         //  context.fill();
         //  context.save()
@@ -186,20 +188,20 @@ window.onload = init;
 
     // NY KOD --------------------------------------------------------------
 
-     const sendMoveSquare = (websocketConnection) => {
-        const obj = {type: "move", payload:obj.payload}
-        // console.log(`Message incoming: ${JSON.stringify(message)} `);
+    //  const sendMoveSquare = (websocketConnection) => {
+    //     const obj = {type: "move", payload:obj.payload}
+    //     // console.log(`Message incoming: ${JSON.stringify(message)} `);
        
      
-        websocketConnection.send(JSON.stringify({type: "move", payload: obj}))
-        // {type: "moveOtherClient", payload }
-     }
+    //     websocketConnection.send(JSON.stringify({type: "move", payload: obj}))
+    //     // {type: "moveOtherClient", payload }
+    //  }
 
-    //  websocket.onmessage = sendMoveSquare;
+    // //  websocket.onmessage = sendMoveSquare;
 
-     const receiveMoveCharacter = (ctx, args) => {
-        // handle when server tell client to move character
-     }
+    //  const receiveMoveCharacter = (ctx, args) => {
+    //     // handle when server tell client to move character
+    //  }
 
     //  function sendTextMessage ( websocketConnection) {
     //     const obj = {type:"text", payload: }

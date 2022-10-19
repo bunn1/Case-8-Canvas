@@ -35,6 +35,9 @@ li {
 }
 
 .disconnected {
+    background-color:#4CAF50;
+    color: white;
+    width: 100px;
     animation: hideAnimation 5s ease-in 5s;
     animation-fill-mode: forwards;
 }

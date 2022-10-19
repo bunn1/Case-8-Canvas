@@ -76,17 +76,18 @@ wss.on('connection', (ws) => {
             // Send message back to client
             objBroadcast = {
                 type: "move",
-                commands: {up:false, down:false, left:false, right:false}
+                commands: obj
                 
             }
-
-              ws.send(JSON.stringify(objBroadcast));
+            console.log("hej")
+            console.log(objBroadcast)
+            //   ws.send(JSON.stringify(objBroadcast));
 
             wss.clients.forEach((client) => {
                 if (client === ws) {
                     return
                 }
-                client.send(JSON.stringify(obj))
+                client.send(JSON.stringify(objBroadcast))
             })
         }
 
