@@ -72,6 +72,8 @@ wss.on('connection', (ws) => {
             }
         }
 
+    console.log("hejdå")
+
         if (obj.type === "move") {
             // Send message back to client
             objBroadcast = {
@@ -79,7 +81,7 @@ wss.on('connection', (ws) => {
                 commands: obj
                 
             }
-            console.log("hej")
+            console.log(obj)
             console.log(objBroadcast)
             //   ws.send(JSON.stringify(objBroadcast));
 
