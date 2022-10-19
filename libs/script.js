@@ -11,6 +11,7 @@ function init(e) {
     let x = width / 2;
     let y = height / 2;
 
+    // Nytt--------------------------------------------------------------------------------------------------------------------
     let objRect = { 
         x:x,
         y:y
@@ -54,10 +55,11 @@ function init(e) {
         context.lineWidth = 15;
         context.strokeRect(10, 10, width - 20, height - 20);
 
-        // Draw player
+        // Draw player - Nytt objRect.x o objRect.y
         context.strokeStyle = '#FFD700';
         context.lineWidth = 15;
         context.strokeRect(objRect.x - 5, objRect.y - 5, 100, 100);
+        // Nytt ovan - ändrat objRect o objRect.y-----------------------------------------------------------------------------------
 
         // Set next frame
 
@@ -83,7 +85,8 @@ function init(e) {
                 commands.right = true
                 break
         }
-        // let object = {x:obj.commands.x, y:obj.commands.y, type:"move"};
+
+        // Nytt-----------------------------------------------------------------------------------------------------------------------
         let object = {
             x: x,
             y: y,
@@ -91,6 +94,8 @@ function init(e) {
         };
         console.log(object);
         websocket.send(JSON.stringify(object));
+
+      
     })
 
 
@@ -143,9 +148,9 @@ window.onload = init;
 const inputText = document.getElementById("inputText");
 const setNickname = document.querySelector("#setNickname");
 
-function showSquareOnEachClient(obj, objRect) {
-        
-    context.strokeStyle = '#FFD700';dd
+// Nytt------------------------------------------------------------------------------------------------------------------------------------------
+function showSquareOnEachClient(obj, objRect) {  
+    context.strokeStyle = '#FFD700';
     context.strokeRect(objRect.x, objRect.y, 100, 100);
     context.stroke()
     console.log("goddag", obj)
@@ -198,6 +203,7 @@ websocket.addEventListener('message', (event) => {
     if (obj.type === "move") {
         console.log(obj, obj.commands.x, obj.commands.y)
 
+        // Nytt --------------------------------------------------------------------------------------------------------------------------
         objRect.x = obj.commands.x
         objRect.y = obj.commands.y
         console.log(objRect)
@@ -344,7 +350,6 @@ websocket.addEventListener('message', (event) => {
   
 })
 
-//         setTimeout
-// setTimeout kommer hjälpa dig att få "leaving chat" meddelandet att försvinnna efter några sekunder
-// det vore snyggt om man kunde se vem som lämnar chatten
-// slumpmässig emoji = Math.random() - done
+    
+
+
