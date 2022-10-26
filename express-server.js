@@ -2,7 +2,7 @@ import express from 'express';
 
 import http from 'http'
 
-import {WebSocket} from 'ws'
+import {WebSocketServer} from 'ws'
 
 import {parseJSON, broadcast, broadcastButExclude} from './libs/functions.js'
 
@@ -15,7 +15,7 @@ app.use(express.static('public'))
 
 const server = http.createServer(app)
 
-const wss = new WebSocket({noServer: true});
+const wss = new WebSocketServer({noServer: true});
 
 server.on('upgrade', (req, socket, head) => {
     console.log('Upgrade event client', req.headers)
