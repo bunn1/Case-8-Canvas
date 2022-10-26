@@ -38,7 +38,7 @@ li {
     background-color:#4CAF50;
     color: white;
     width: 100px;
-    animation: hideAnimation 0s ease-in 10s;
+    animation: hideAnimation 2s ease-in 10s;
     animation-fill-mode: forwards;
 }
 

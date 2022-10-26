@@ -13,7 +13,6 @@ import {
 const wss = new WebSocketServer({
     port: 8081
 });
-
 // Listen on new connections
 wss.on('connection', (ws) => {
     console.log('New client connection from IP:', ws._socket.remoteAddress);
@@ -60,10 +59,8 @@ wss.on('connection', (ws) => {
                 msg: obj.msg,
                 nickname: obj.nickname
             }
-
             // Send an stringified object back - server skickar json till clienten  
             // ws.send(JSON.stringify(objReply));
-
             objBroadcast = {
                 type: "text",
                 msg: obj.msg,
@@ -72,14 +69,11 @@ wss.on('connection', (ws) => {
             }
         }
 
-    console.log("hejdå")
-
         if (obj.type === "move") {
             // Send message back to client
             objBroadcast = {
                 type: "move",
-                commands: obj
-                
+                commands: obj      
             }
             console.log(obj)
             console.log(objBroadcast)
@@ -93,11 +87,10 @@ wss.on('connection', (ws) => {
             })
         }
 
-
         // // Broadcast to all clients 
-        // wss.clients.forEach((client) => {
-        //     client.send(JSON.stringify(objBroadcast))
-        // })
+        wss.clients.forEach((client) => {
+            client.send(JSON.stringify(objBroadcast))
+        })
 
         // broadcast to all clients
         // broadcast(wss, objBroadcast);
@@ -107,11 +100,3 @@ wss.on('connection', (ws) => {
     })
 
 });
-// skickar till servern
-// websocket.send(JSON.stringify({ type: "clues", payload: murderer }))
-
-// skickar servern till client - och då tar du emot den i en switch
-// wss.clients.forEach((client) => {
-
-//     client.send(JSON.stringify(killerObj))
-//     });
