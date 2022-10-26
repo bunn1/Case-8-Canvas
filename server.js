@@ -84,14 +84,14 @@ wss.on('connection', (ws) => {
                 if (client === ws) {
                     return
                 }
-                client.send(JSON.stringify(objBroadcast))
+                // client.send(JSON.stringify(objBroadcast))
             })
         }
 
         // // Broadcast to all clients 
-        wss.clients.forEach((client) => {
-            client.send(JSON.stringify(objBroadcast))
-        })
+        // wss.clients.forEach((client) => {
+        //     client.send(JSON.stringify(objBroadcast))
+        // })
 
         // broadcast to all clients
         // broadcast(wss, objBroadcast);
