@@ -1,4 +1,3 @@
-
 import {
     WebSocketServer
 } from 'ws';
@@ -9,6 +8,7 @@ import {
     broadcast,
     broadcastButExclude
 } from './libs/functions.js'
+
 
 // Create WebSocket server
 const wss = new WebSocketServer({
