@@ -1,3 +1,5 @@
+import {WebSocketServer} from "ws";
+
 /**
  *parse JSON
  *
@@ -22,29 +24,6 @@ function parseJSON(data) {
                 return {error: "An error..."}
             }
 }
-
-// function sendMoveRectangel(websocketConnection){
-    
-// }
-
-// function recieveMoveRectangel(ctx, args){
-//     // Server tell client to move rectangel
-// }
-
-
-
-
-// function sendMoveSquare (websocketConnection){
-//    const obj = { }
-//    websocketConnection.send(JSON.stringify())
-// }
-
-
-// function recieveMoveSquare() {
-
-// }
-
-
 
 function randomNumber() {
     return 1;

@@ -157,7 +157,7 @@ websocket.addEventListener('message', (event) => {
 
     // Renderar obj om det är ett chatt meddelande
     if (obj.type === "text") {
-
+        console.log(obj)
         renderMessage(obj)
     }
 
@@ -213,7 +213,7 @@ function parseJSON(data) {
 function renderMessage(obj) {
     // Use template - cloneNode to get info fragment
     let template = document.getElementById("message").cloneNode(true);
-    console.log("template", template)
+    // console.log("template", template)
 
 
     // use content to access content
@@ -265,6 +265,7 @@ const myEmojis = ["😃", "🙃", "😇", "🤔", "🤠"]
             // Chat message - send text to server
             // Chat message
             let objMessage = {
+                type: "text",
                 msg: inputText.value,
                 nickname: nickname
             }

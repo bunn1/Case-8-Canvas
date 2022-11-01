@@ -1,4 +1,4 @@
-// Express module
+// Express modules
 
 import {
     WebSocketServer
@@ -10,7 +10,6 @@ import {
     broadcast,
     broadcastButExclude
 } from './libs/functions.js'
-
 
 // Create WebSocket server
 const wss = new WebSocketServer({
@@ -56,12 +55,12 @@ wss.on('connection', (ws) => {
 
         if (obj.type === "text") {
             // Send message back to client
-            let objReply = {
-                type: "text",
-                // msg: `I received a message from you: ${obj.msg}`
-                msg: obj.msg,
-                nickname: obj.nickname
-            }
+            // let objReply = {
+            //     type: "text",
+            //     // msg: `I received a message from you: ${obj.msg}`
+            //     msg: obj.msg,
+            //     nickname: obj.nickname
+            // }
             // Send an stringified object back - server skickar json till clienten  
             // ws.send(JSON.stringify(objReply));
             objBroadcast = {
@@ -70,6 +69,13 @@ wss.on('connection', (ws) => {
                 // This show which person sent message
                 nickname: obj.nickname
             }
+
+        //     wss.clients.forEach((client) => {
+        //     client.send(JSON.stringify(objBroadcast))
+        // })
+
+        broadcastButExclude(wss, ws, objBroadcast);
+
         }
 
         if (obj.type === "move") {
@@ -99,7 +105,7 @@ wss.on('connection', (ws) => {
         // broadcast(wss, objBroadcast);
 
         // broadcast to all but this ws....
-        broadcastButExclude(wss, ws, objBroadcast);
+       
     })
 
 });
