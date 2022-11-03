@@ -92,7 +92,7 @@ wss.on('connection', (ws) => {
                 if (client === ws) {
                     return
                 }
-                // client.send(JSON.stringify(objBroadcast))
+                client.send(JSON.stringify(objBroadcast))
             })
         }
 

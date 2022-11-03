@@ -34,18 +34,3 @@ li {
     font-family: 'Roboto'; 
 }
 
-.disconnected {
-    background-color:#4CAF50;
-    color: white;
-    width: 100px;
-    animation: hideAnimation 2s ease-in 10s;
-    animation-fill-mode: forwards;
-}
-
-@keyframes hideAnimation {
-    to {
-        visibility: hidden;
-        width: 10;
-        height: 10;
-    }
-}

@@ -151,8 +151,12 @@ websocket.addEventListener('message', (event) => {
     if (obj.type === "leaving") {
 
         let div = document.querySelector('.disconnected')
-        // console.log(div)
+        console.log("tjena")
+
         div.innerHTML = "Leaving chat"
+        setTimeout(() => {
+            div.innerHTML = ""
+        }, 3000)
     }
 
     // Renderar obj om det är ett chatt meddelande
@@ -238,61 +242,61 @@ function renderMessage(obj) {
 
 const myEmojis = ["😃", "🙃", "😇", "🤔", "🤠"]
 
-    function renderEmojis() {
-        for (let i = 0; i < myEmojis.length; i++) {
-            const emoji = document.getElementById("inputText")
-            emoji.textContent += myEmojis[i]
-        }
+function renderEmojis() {
+    for (let i = 0; i < myEmojis.length; i++) {
+        const emoji = document.getElementById("inputText")
+        emoji.textContent += myEmojis[i]
     }
+}
 
 
-    const pushBtn = document.getElementById("push-btn")
-    pushBtn.addEventListener("click", function () {
-        const emojiInput = document.getElementById("inputText")
-        emojiInput.value += myEmojis[Math.floor(Math.random() * myEmojis.length)];
-        //  if (emojiInput.value){
-        //      myEmojis.push(emojiInput.value)
-        //      emojiInput.value = ""
-        //      renderEmojis()
-        //  }
-    })
+const pushBtn = document.getElementById("push-btn")
+pushBtn.addEventListener("click", function () {
+    const emojiInput = document.getElementById("inputText")
+    emojiInput.value += myEmojis[Math.floor(Math.random() * myEmojis.length)];
+    //  if (emojiInput.value){
+    //      myEmojis.push(emojiInput.value)
+    //      emojiInput.value = ""
+    //      renderEmojis()
+    //  }
+})
 
-    inputText.addEventListener("keydown", (event) => {
+inputText.addEventListener("keydown", (event) => {
 
-        // Press Enter.... make sure at least one char
-        if (event.key === "Enter" && inputText.value.length > 0) {
+    // Press Enter.... make sure at least one char
+    if (event.key === "Enter" && inputText.value.length > 0) {
 
-            // Chat message - send text to server
-            // Chat message
-            let objMessage = {
-                type: "text",
-                msg: inputText.value,
-                nickname: nickname
-            }
-            // show new message for this user
-            renderMessage(objMessage);
-
-            // Send text to Server
-            websocket.send(JSON.stringify(objMessage));
-
-            // reset input field
-            inputText.value = "";
+        // Chat message - send text to server
+        // Chat message
+        let objMessage = {
+            type: "text",
+            msg: inputText.value,
+            nickname: nickname
         }
-    })
+        // show new message for this user
+        renderMessage(objMessage);
 
-    setNickname.addEventListener("click", () => {
+        // Send text to Server
+        websocket.send(JSON.stringify(objMessage));
 
-        // get value from input nickname
-        nickname = document.getElementById('nickname').value;
-        console.log(nickname)
+        // reset input field
+        inputText.value = "";
+    }
+})
 
-        // if set - disable input nickname
-        document.getElementById('nickname').setAttribute('disabled', true);
+setNickname.addEventListener("click", () => {
 
-        // enable input field
-        document.getElementById("inputText").removeAttribute("disabled");
+    // get value from input nickname
+    nickname = document.getElementById('nickname').value;
+    console.log(nickname)
 
-        // focus input field
-        document.getElementById("inputText").focus();
+    // if set - disable input nickname
+    document.getElementById('nickname').setAttribute('disabled', true);
 
-    });
+    // enable input field
+    document.getElementById("inputText").removeAttribute("disabled");
+
+    // focus input field
+    document.getElementById("inputText").focus();
+
+});
