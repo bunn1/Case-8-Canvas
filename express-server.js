@@ -48,6 +48,8 @@
 //     // start websocket
 //     wss.handleUpgrade(req, socket, head, (ws) => {
 //         console.log("let user use websocket...");
+
+//         wss.emit("connection", ws, req)
 //     });
 
 // });
@@ -61,10 +63,10 @@
 // });
 
 
-// // use method listen - server start
-// // app.listen(port, (req, res) => {
-// //     console.log(`Express server running on port ${port}`);
-// // });
+// use method listen - server start
+// app.listen(port, (req, res) => {
+//     console.log(`Express server running on port ${port}`);
+// });
 
 
 
