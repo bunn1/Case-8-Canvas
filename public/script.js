@@ -249,7 +249,6 @@ function renderEmojis() {
     }
 }
 
-
 const pushBtn = document.getElementById("push-btn")
 pushBtn.addEventListener("click", function () {
     const emojiInput = document.getElementById("inputText")
@@ -265,7 +264,7 @@ inputText.addEventListener("keydown", (event) => {
 
     // Press Enter.... make sure at least one char
     if (event.key === "Enter" && inputText.value.length > 0) {
-
+        // console.log("test", event)
         // Chat message - send text to server
         // Chat message
         let objMessage = {

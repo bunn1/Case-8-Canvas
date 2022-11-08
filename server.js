@@ -1,5 +1,12 @@
 // Express modules
 
+/* dependencies - imports
+------------------------------- */
+import express from 'express';
+
+// core module http - no npm install...
+import http from 'http';
+
 import {
     WebSocketServer
 } from 'ws';
@@ -11,10 +18,39 @@ import {
     broadcastButExclude
 } from './libs/functions.js'
 
-// Create WebSocket server
+const port = 8081;
+
+const app = express();
+
+app.use(express.static('public'))
+
+const server = http.createServer(app)
+
 const wss = new WebSocketServer({
-    port: 8081
+    noServer: true
+})
+
+// upgrade event - websocket communication
+server.on('upgrade', (req, socket, head) => {
+    console.log('Upgrade event client: ', req.headers);
+
+    // use authentication - only logged in users allowed ?
+
+
+    // start websocket
+    wss.handleUpgrade(req, socket, head, (ws) => {
+        console.log("let user use websocket...");
+
+        wss.emit("connection", ws, req)
+    });
+
 });
+
+// // Create WebSocket server
+// const wss = new WebSocketServer({
+//     port: 8081
+// });
+
 // Listen on new connections
 wss.on('connection', (ws) => {
     console.log('New client connection from IP:', ws._socket.remoteAddress);
@@ -70,11 +106,11 @@ wss.on('connection', (ws) => {
                 nickname: obj.nickname
             }
 
-        //     wss.clients.forEach((client) => {
-        //     client.send(JSON.stringify(objBroadcast))
-        // })
+            //     wss.clients.forEach((client) => {
+            //     client.send(JSON.stringify(objBroadcast))
+            // })
 
-        broadcastButExclude(wss, ws, objBroadcast);
+            broadcastButExclude(wss, ws, objBroadcast);
 
         }
 
@@ -82,7 +118,7 @@ wss.on('connection', (ws) => {
             // Send message back to client
             objBroadcast = {
                 type: "move",
-                commands: obj      
+                commands: obj
             }
             console.log(obj)
             console.log(objBroadcast)
@@ -105,15 +141,22 @@ wss.on('connection', (ws) => {
         // broadcast(wss, objBroadcast);
 
         // broadcast to all but this ws....
-       
     })
 
+
+
+});
+server.listen(port, (req, res) => {
+    console.log(`Express server (and http) running on port ${port}`);
 });
 
 
-// server.listen(port, (req, res) => {
-//     console.log(`Express server (and http) running on port ${port}`);
-// });
+
+
+
+
+
+
 
 
 
