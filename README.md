@@ -1,11 +1,15 @@
-# Case-8-Canvas
+Welcome to my schoolproject with canvas and websocket. Its a simple chat with textmessages and emojis. You are also able to move a rectangle on the screen.
 
-How to install and use app 
+1. Copy this link: https://github.com/bunn1/Case-8-Canvas
 
-1. Start Terminal VSC
-2. Write npm init
-3. Write npm i express
-4. Write npm i ws
-5. Write node server.js
-6. Start to play
- 
+2. In VSC terminal type: git clone https://github.com/bunn1/Case-8-Canvas and press Enter.
+
+3. cd into project " cd Case-8-Canvas "
+
+4. run "npm install" in terminal
+
+5. Start project simply type "node server.js" in terminal
+
+
+
+
