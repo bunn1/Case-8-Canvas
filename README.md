@@ -1,4 +1,4 @@
-Welcome to my schoolproject with canvas and websocket. Its a simple chat with textmessages and emojis. You are also able to move a rectangle on the screen.
+Welcome to my school project with canvas and websocket. Its a simple chat with textmessages and emojis. You are also able to move a rectangle on the screen.
 
 1. Copy this link: https://github.com/bunn1/Case-8-Canvas
 
